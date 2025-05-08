@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
-
 const reviews = new Schema({
 	id: {
     type: Number,
@@ -40,5 +38,4 @@ const reviews = new Schema({
     required: true
   },
 });
-
 module.exports = mongoose.model('reviews', reviews);
