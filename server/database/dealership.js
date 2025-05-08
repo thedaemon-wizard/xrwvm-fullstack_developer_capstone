@@ -1,7 +1,8 @@
+/* jshint esversion: 6 */
+// This directive informs JSHint that ES6 features like 'const' are intentionally used in this file
+
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
-
 const dealerships = new Schema({
 	id: {
     type: Number,
@@ -39,5 +40,4 @@ const dealerships = new Schema({
     required: true
   }
 });
-
 module.exports = mongoose.model('dealerships', dealerships);
