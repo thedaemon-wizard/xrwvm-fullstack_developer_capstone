@@ -160,7 +160,7 @@ def add_review(request):
         try:
             # Store response for potential future use
             response = post_review(data)
-            return JsonResponse({"status": 200})
+            return JsonResponse({"status": 200, "data": response})
         except Exception:
             return JsonResponse({
                 "status": 401,
