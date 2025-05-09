@@ -80,6 +80,7 @@ try {
 //Express route to insert review
 app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
   const data = JSON.parse(req.body);  // constを追加、セミコロン追加
+  const documents = await Reviews.find().sort( { id: -1 } )
   let new_id = documents[0].id+1;  // ドット表記に変更、セミコロン追加
   const review = new Reviews({
     "id": new_id,
