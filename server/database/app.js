@@ -1,13 +1,13 @@
 /* jshint esversion: 8 */
-// ↑ ES8のasync/awaitをサポートするために必要なJSHintディレクティブ
+// This JSHint directive is needed to support async/await in ES8
 
 const express = require('express');
 const mongoose = require('mongoose');
 const fs = require('fs');
-const cors = require('cors');  // セミコロン追加
-const app = express();  // セミコロン追加
+const cors = require('cors');
+const app = express();
 const port = 3030;
-app.use(cors());  // セミコロン修正済み
+app.use(cors());
 app.use(require('body-parser').urlencoded({ extended: false }));
 const reviews_data = JSON.parse(fs.readFileSync("reviews.json", 'utf8'));
 const dealerships_data = JSON.parse(fs.readFileSync("dealerships.json", 'utf8'));
@@ -16,10 +16,10 @@ const Reviews = require('./review');
 const Dealerships = require('./dealership');
 try {
   Reviews.deleteMany({}).then(()=>{
-    Reviews.insertMany(reviews_data.reviews);  // ドット表記に変更
+    Reviews.insertMany(reviews_data.reviews);
   });
   Dealerships.deleteMany({}).then(()=>{
-    Dealerships.insertMany(dealerships_data.dealerships);  // ドット表記に変更
+    Dealerships.insertMany(dealerships_data.dealerships);
   });
   
 } catch (error) {
@@ -27,7 +27,7 @@ try {
 }
 // Express route to home
 app.get('/', async (req, res) => {
-    res.send("Welcome to the Mongoose API");  // セミコロン追加
+    res.send("Welcome to the Mongoose API");
 });
 // Express route to fetch all reviews
 app.get('/fetchReviews', async (req, res) => {
@@ -79,19 +79,19 @@ try {
 });
 //Express route to insert review
 app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
-  const data = JSON.parse(req.body);  // constを追加、セミコロン追加
-  const documents = await Reviews.find().sort( { id: -1 } )
-  let new_id = documents[0].id+1;  // ドット表記に変更、セミコロン追加
+  const data = JSON.parse(req.body);
+  const documents = await Reviews.find().sort( { id: -1 } );
+  let new_id = documents[0].id+1;
   const review = new Reviews({
     "id": new_id,
-    "name": data.name,  // ドット表記に変更
-    "dealership": data.dealership,  // ドット表記に変更
-    "review": data.review,  // ドット表記に変更
-    "purchase": data.purchase,  // ドット表記に変更
-    "purchase_date": data.purchase_date,  // ドット表記に変更
-    "car_make": data.car_make,  // ドット表記に変更
-    "car_model": data.car_model,  // ドット表記に変更
-    "car_year": data.car_year,  // ドット表記に変更
+    "name": data.name,
+    "dealership": data.dealership,
+    "review": data.review,
+    "purchase": data.purchase,
+    "purchase_date": data.purchase_date,
+    "car_make": data.car_make,
+    "car_model": data.car_model,
+    "car_year": data.car_year,
   });
   try {
     const savedReview = await review.save();
@@ -103,5 +103,5 @@ app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
 });
 // Start the Express server
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);  // テンプレートリテラルはES6
+  console.log(`Server is running on http://localhost:${port}`);
 });
